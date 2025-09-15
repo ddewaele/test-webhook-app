@@ -25,6 +25,11 @@ function getIncomingText(payload) {
   }
 }
 
+function trimBeforeFirstNewline(str) {
+  const index = str.indexOf('\n');
+  return index === -1 ? str : str.slice(0, index);
+}
+
 
 // Route for GET requests
 app.get('/', (req, res) => {
@@ -58,6 +63,7 @@ app.post('/', async (req, res) => {
     input,
   }))
 
+
   console.log(runResponse);
 
   console.log("Calling WhatsApp API");
@@ -77,7 +83,7 @@ app.post('/', async (req, res) => {
           parameters: [
             {
               type: "text",
-              text: runResponse.messages[runResponse.messages.length-1].content,
+              text: trimBeforeFirstNewline(runResponse.messages[runResponse.messages.length-1].content),
             },
           ],
         },
