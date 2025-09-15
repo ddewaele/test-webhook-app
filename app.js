@@ -85,6 +85,14 @@ app.post('/', async (req, res) => {
               type: "text",
               text: trimBeforeFirstNewline(runResponse.messages[runResponse.messages.length-1].content),
             },
+            {
+              type: "date",
+              text: "12/12/2022",
+            },
+            {
+              type: "amount",
+              text: "60",
+            },
           ],
         },
       ],
