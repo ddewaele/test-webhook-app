@@ -83,18 +83,25 @@ app.post('/', async (req, res) => {
           parameters: [
             {
               type: "text",
-              text: trimBeforeFirstNewline(runResponse.messages[runResponse.messages.length-1].content),
+              text: trimBeforeFirstNewline(
+                  runResponse.messages[runResponse.messages.length - 1].content
+              ),
             },
             {
-              type: "date",
-              text: "12/12/2022",
+              type: "date_time",
+              date_time: {
+                fallback_value: "12/12/2022",
+              },
             },
             {
-              type: "amount",
-              text: "60",
+              type: "currency",
+              currency: {
+                fallback_value: "60 EUR",
+                code: "EUR",
+                amount_1000: 60000,
+              },
             },
           ],
-        },
       ],
     },
   };
