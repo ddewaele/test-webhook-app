@@ -27,9 +27,9 @@ function getIncomingText(payload) {
 
 function trimBeforeFirstNewline(str) {
   const index = str.indexOf('\n');
-  return index === -1 ? str : str.slice(0, index);
+  const firstLine = index === -1 ? str : str.slice(0, index);
+  return firstLine.length > 29 ? firstLine.slice(0, 29) : firstLine;
 }
-
 
 // Route for GET requests
 app.get('/', (req, res) => {
@@ -54,6 +54,10 @@ app.post('/', async (req, res) => {
   });
   const assistantId = "agent";
   const thread = await client.threads.create();
+
+  if (getIncomingText(req.body) === "Error occured") {
+    return; // stop execution here
+  }
 
   let input = {
     messages: [{ role: "user", content: getIncomingText(req.body) }],
