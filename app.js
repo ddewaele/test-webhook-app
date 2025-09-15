@@ -11,6 +11,7 @@ app.use(express.json());
 // Set port and verify_token
 const port = process.env.PORT || 3000;
 const verifyToken = process.env.VERIFY_TOKEN;
+const whatsAppToken = process.env.WHATSAPP_API_TOKEN;
 
 function getIncomingText(payload) {
   try {
@@ -59,6 +60,8 @@ app.post('/', async (req, res) => {
 
   console.log(runResponse);
 
+  console.log("Calling WhatsApp API");
+  
   const url = `https://graph.facebook.com/v22.0/734754013064653/messages`;
 
   const payload = {
@@ -87,7 +90,7 @@ app.post('/', async (req, res) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${whatsAppToken}`,
       },
       body: JSON.stringify(payload),
     });
