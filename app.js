@@ -19,9 +19,9 @@ function getIncomingText(payload) {
     const msg = Array.isArray(msgs) ? msgs[0] : undefined;
     if (msg?.type === "text") return msg?.text?.body?.trim();
     // You can handle other types (image, audio, etc.) here if needed
-    return undefined;
+    return "Error occured";
   } catch {
-    return undefined;
+    return "Error occured";
   }
 }
 
@@ -61,7 +61,7 @@ app.post('/', async (req, res) => {
   console.log(runResponse);
 
   console.log("Calling WhatsApp API");
-  
+
   const url = `https://graph.facebook.com/v22.0/734754013064653/messages`;
 
   const payload = {
@@ -70,7 +70,7 @@ app.post('/', async (req, res) => {
     type: "template",
     template: {
       name: "template1",
-      language: { code: "nl_BE" },
+      language: { code: "en_US" },
       components: [
         {
           type: "body",
