@@ -59,6 +59,46 @@ app.post('/', async (req, res) => {
 
   console.log(runResponse);
 
+  const url = `https://graph.facebook.com/v22.0/734754013064653/messages`;
+
+  const payload = {
+    messaging_product: "whatsapp",
+    to: "32477308443",
+    type: "template",
+    template: {
+      name: "template1",
+      language: { code: "nl_BE" },
+      components: [
+        {
+          type: "body",
+          parameters: [
+            {
+              type: "text",
+              text: runResponse.messages[runResponse.messages.length-1].content,
+            },
+          ],
+        },
+      ],
+    },
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+    console.log("WhatsApp API response:", data);
+  } catch (err) {
+    console.error("Error sending WhatsApp message:", err);
+  }
+
+
   res.status(200).end();
 });
 
