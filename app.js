@@ -94,6 +94,10 @@ app.post('/', async (req, res) => {
               },
             },
             {
+              type: "text",
+              text: "test"
+            },
+            {
               type: "currency",
               currency: {
                 fallback_value: "60 EUR",
@@ -101,7 +105,8 @@ app.post('/', async (req, res) => {
                 amount_1000: 60000,
               },
             },
-          ],
+          ]
+        }
       ],
     },
   };
